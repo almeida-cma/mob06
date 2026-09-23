@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividades Práticas – HTML, CSS e JavaScript</title>
+    <style>
+        /* ===== ESTILOS GERAIS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* ===== CARD DE ATIVIDADE ===== */
+        .atividade {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2.5rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .atividade:hover {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .atividade.modelo {
+            border: 2px solid #3b82f6;
+            background: #f8fafc;
+        }
+
+        .atividade.modelo h2 {
+            color: #1d4ed8;
+        }
+
+        .atividade h2 {
+            font-size: 1.6rem;
+            color: #0f172a;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .atividade h3 {
+            font-size: 1.15rem;
+            color: #1e293b;
+            margin: 1.5rem 0 0.6rem;
+        }
+
+        .enunciado {
+            background: #f8fafc;
+            border-left: 5px solid #3b82f6;
+            padding: 1rem 1.4rem;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 1.2rem;
+            font-style: italic;
+            color: #334155;
+        }
+
+        .instrucoes {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instrucoes li {
+            padding: 0.3rem 0 0.3rem 1.8rem;
+            position: relative;
+        }
+
+        .instrucoes li::before {
+            content: "▸";
+            position: absolute;
+            left: 0.2rem;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        .dicas {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            padding: 1rem 1.4rem;
+            margin: 1rem 0;
+        }
+
+        .dicas strong {
+            color: #b45309;
+        }
+
+        .dicas ul {
+            margin-top: 0.4rem;
+            padding-left: 1.4rem;
+        }
+
+        .dicas li {
+            margin-bottom: 0.2rem;
+        }
+
+        /* ===== ESPAÇO PARA IMAGEM ===== */
+        .imagem-placeholder {
+            background: #f1f5f9;
+            border: 2px dashed #94a3b8;
+            border-radius: 12px;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            color: #64748b;
+            margin: 1.2rem 0;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .imagem-placeholder:hover {
+            background: #e2e8f0;
+        }
+
+        .imagem-placeholder::before {
+            content: "🖼️ ";
+            font-size: 1.4rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* ===== GLOSSÁRIO ===== */
+        .glossario {
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .glossario h2 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            border-bottom: 3px solid #8b5cf6;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .glossario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .glossario-categoria {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .glossario-categoria h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: #3b82f6;
+        }
+
+        .glossario-categoria h3.html {
+            color: #e34f26;
+        }
+
+        .glossario-categoria h3.css {
+            color: #264de4;
+        }
+
+        .glossario-categoria h3.js {
+            color: #f7df1e;
+            text-shadow: 0 0 1px #000;
+        }
+
+        .glossario-categoria dl {
+            font-size: 0.9rem;
+        }
+
+        .glossario-categoria dt {
+            font-weight: 600;
+            color: #0f172a;
+            margin-top: 0.6rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .glossario-categoria dd {
+            color: #475569;
+            margin-left: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        /* ===== DICA EMOJI ===== */
+        .dica-emoji {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 12px;
+            padding: 1rem 1.4rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .dica-emoji kbd {
+            background: #1e293b;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RODAPÉ ===== */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 1rem;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .btn-formulario {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-formulario:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .btn-formulario:active {
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.6rem;
+            }
+
+            .atividade {
+                padding: 1.2rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .atividade h2 {
+                font-size: 1.3rem;
+            }
+
+            .glossario {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>📘 Atividades Práticas – HTML, CSS e JavaScript</h1>
+    <p class="subtitle">Modelo resolvido + 10 desafios para praticar do zero no VSCode</p>
+
+    <!-- DICA EMOJI -->
+    <div class="dica-emoji">
+        💡 <strong>Dica:</strong> Para inserir emojis no VSCode, pressione
+        <kbd>Windows</kbd> + <kbd>.</kbd> (ponto) ou <kbd>Ctrl</kbd> + <kbd>;</kbd>
+        e escolha o emoji desejado.
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MODELO – CONTROLE DE VOLUME (COM SUGESTÃO DE RESPOSTA)        -->
+    <!-- ============================================================ -->
+    <section class="atividade modelo">
+        <h2>🔊 Modelo – Controle de Volume</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página para controlar o volume de um aparelho de som.
+            O usuário deverá escolher um valor de volume utilizando um controle deslizante.
+            Ao alterar o valor, a página deverá apresentar o volume selecionado.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Crie a estrutura da página utilizando HTML.</li>
+            <li>Utilize um campo <code>range</code> para representar o volume.</li>
+            <li>Utilize CSS para organizar a apresentação.</li>
+            <li>Utilize JavaScript para capturar o valor escolhido.</li>
+            <li>Mostre o valor do volume na página.</li>
+            <li>Teste a aplicação no navegador.</li>
+            <li>Faça uma pequena alteração no exemplo.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>Use <code>&lt;input type="range"&gt;</code> com os atributos <code>min</code>, <code>max</code> e <code>value</code>.</li>
+                <li>O evento <code>onchange</code> dispara quando o valor muda.</li>
+                <li>Para exibir o valor, use um elemento <code>&lt;p&gt;</code> com um <code>id</code> e altere o <code>innerText</code>.</li>
+                <li>No CSS, centralize o conteúdo com <code>text-align: center</code> no <code>body</code>.</li>
+            </ul>
+        </div>
+
+        <!-- ESPAÇO PARA IMAGEM DA TELA -->
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/volume.webm" type="video/webm">
+        </video>
+
+        <h3>✅ Sugestão de Resposta</h3>
+        <p><strong>HTML:</strong></p>
+        <pre style="background:#f1f5f9;padding:1rem;border-radius:8px;overflow-x:auto;font-size:0.85rem;"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Controle de Volume&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="card"&gt;
+        &lt;h2&gt;🔊 Controle de Volume&lt;/h2&gt;
+        &lt;input type="range" id="volume" min="0" max="100" value="50"
+               onchange="mostrarVolume()"&gt;
+        &lt;p id="saida"&gt;Volume: 50%&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <p><strong>CSS:</strong></p>
+        <pre style="background:#f1f5f9;padding:1rem;border-radius:8px;overflow-x:auto;font-size:0.85rem;"><code>body {
+    text-align: center;
+    background: #f8fafc;
+}
+.card {
+    background: white;
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #999;
+    border-radius: 12px;
+}
+input {
+    width: 90%;
+}
+#saida {
+    padding: 8px;
+    background: #e0f2fe;
+}</code></pre>
+
+        <p><strong>JavaScript:</strong></p>
+        <pre style="background:#f1f5f9;padding:1rem;border-radius:8px;overflow-x:auto;font-size:0.85rem;"><code>function mostrarVolume() {
+    let volume = document.getElementById("volume").value;
+    document.getElementById("saida").innerText =
+        "🔊 Volume: " + volume + "%";
+}</code></pre>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 1 – IDENTIFICAÇÃO                                   -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>1️⃣ Atividade 1 – Identificação</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página com um campo de texto para o
+            usuário digitar seu nome. Ao clicar em "Testar", a página deve exibir o
+            nome informado. O botão "Limpar" deve apagar o campo e a mensagem exibida.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Crie um campo de texto com <code>id="nome"</code>.</li>
+            <li>Adicione dois botões: "Testar" e "Limpar".</li>
+            <li>Crie uma função <code>mensagem()</code> que exiba o valor digitado.</li>
+            <li>Crie uma função <code>limpar()</code> que apague o campo e a saída.</li>
+            <li>Estilize com um card centralizado e a saída em azul.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>Use <code>document.getElementById("nome").value</code> para capturar o texto.</li>
+                <li>Use <code>innerText</code> para mostrar o resultado no parágrafo de saída.</li>
+                <li>Para limpar, defina <code>.value = ""</code> e chame a função <code>mensagem()</code> novamente.</li>
+                <li>Use <code>onclick</code> nos botões para chamar as funções.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/identificacao.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 2 – CARRINHO DE COMPRAS                             -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>2️⃣ Atividade 2 – Carrinho de Compras</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página que simule um carrinho de compras.
+            O usuário informa a quantidade de fones de ouvido (R$ 29,00 cada) e a página
+            calcula e exibe o total a pagar.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Monte a estrutura com um campo <code>number</code> para a quantidade.</li>
+            <li>Use o evento <code>onchange</code> para recalcular automaticamente.</li>
+            <li>Exiba o total formatado com vírgula no lugar do ponto.</li>
+            <li>Estilize o card com CSS.</li>
+            <li>Teste com diferentes quantidades (0 a 10).</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>Use <code>parseFloat</code> ou <code>Number</code> para converter o valor do input.</li>
+                <li>Para formatar o preço: <code>(preco * qtd).toFixed(2).replace('.', ',')</code>.</li>
+                <li>Defina <code>min="0"</code> e <code>max="10"</code> no input.</li>
+                <li>Use <code>id</code> diferentes para o input e para a saída.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/carrinho.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 3 – ESTOQUE                                         -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>3️⃣ Atividade 3 – Controle de Estoque</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página que verifique se a quantidade
+            solicitada de controles de videogame está disponível no estoque (3 unidades).
+            Exiba uma mensagem de sucesso ou de estoque ultrapassado.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Mostre a quantidade disponível em estoque.</li>
+            <li>Use um campo <code>number</code> para o usuário informar a quantidade desejada.</li>
+            <li>Compare a quantidade solicitada com o estoque.</li>
+            <li>Exiba mensagens diferentes com cores distintas (verde/vermelho).</li>
+            <li>Use classes CSS para estilizar as mensagens.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>Use <code>if / else</code> para verificar se a quantidade ultrapassa o estoque.</li>
+                <li>Altere <code>className</code> do elemento de saída para aplicar estilos diferentes.</li>
+                <li>Crie classes <code>.ok</code> e <code>.no</code> no CSS.</li>
+                <li>Use emojis ✅ e ❌ para reforçar a mensagem.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/estoque.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 4 – FORMAS DE PAGAMENTO                             -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>4️⃣ Atividade 4 – Formas de Pagamento</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página que simule a escolha da forma
+            de pagamento para um total de R$ 100,00. PIX dá 5% de desconto, Cartão
+            mantém o valor e Dinheiro dá 10% de desconto.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Use um elemento <code>select</code> com as opções PIX, Cartão e Dinheiro.</li>
+            <li>Capture a opção escolhida com o evento <code>onchange</code>.</li>
+            <li>Aplique os descontos conforme a opção.</li>
+            <li>Formate os valores com vírgula.</li>
+            <li>Estilize a saída com cores diferentes para cada forma de pagamento.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>PIX: <code>total * 0.95</code> | Cartão: <code>total</code> | Dinheiro: <code>total * 0.90</code>.</li>
+                <li>Use <code>if / else if / else</code> para tratar cada caso.</li>
+                <li>Altere <code>className</code> para aplicar cores diferentes.</li>
+                <li>Chame a função uma vez ao carregar a página para já mostrar o valor.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/pagamento.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 5 – ENDEREÇOS PARA ENTREGA                          -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>5️⃣ Atividade 5 – Endereço de Entrega</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página onde o usuário escolhe o local
+            de entrega (Casa, Sítio ou Trabalho) usando botões de rádio. A página deve
+            exibir uma mensagem informando onde o pedido será entregue.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Use <code>input type="radio"</code> com o mesmo <code>name</code> para agrupar.</li>
+            <li>Capture a opção selecionada com <code>document.querySelector</code>.</li>
+            <li>Exiba a mensagem correspondente ao endereço escolhido.</li>
+            <li>Use emojis para ilustrar cada opção.</li>
+            <li>Chame a função ao carregar a página.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>Use <code>'input[name="endereco"]:checked'</code> para pegar o selecionado.</li>
+                <li>Cada <code>radio</code> deve ter um <code>value</code> diferente.</li>
+                <li>Um dos radios deve ter o atributo <code>checked</code>.</li>
+                <li>Use <code>if / else if / else</code> para tratar as opções.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/entrega.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 6 – CADASTRO                                        -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>6️⃣ Atividade 6 – Cadastro de Cliente</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página para cadastrar um cliente com
+            Nome, Idade e Cidade. Ao clicar em "Cadastrar", exiba os dados informados.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Crie campos de entrada para nome, idade e cidade.</li>
+            <li>Use um botão com <code>onclick</code> para chamar a função de cadastro.</li>
+            <li>Capture os valores com <code>document.getElementById</code>.</li>
+            <li>Exiba os dados concatenados em um parágrafo.</li>
+            <li>Estilize o formulário com CSS.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>Use <code>input type="text"</code> para nome e cidade e <code>type="number"</code> para idade.</li>
+                <li>Use <code>.value</code> para pegar o conteúdo dos inputs.</li>
+                <li>Concatene as strings com <code>+</code>.</li>
+                <li>Use <code>innerText</code> para mostrar o resultado.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/cadastro1.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 7 – CADASTRO COM OUTROS ELEMENTOS                   -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>7️⃣ Atividade 7 – Cadastro com Select e Radio</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página de cadastro que utilize um
+            campo de texto para o nome, um <code>select</code> para a cidade e botões
+            de rádio para o tipo de cliente (Novo ou Cliente). Exiba os dados ao clicar
+            em "Cadastrar".
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Use <code>&lt;select&gt;</code> com opções de cidades.</li>
+            <li>Use <code>input type="radio"</code> com o mesmo <code>name</code>.</li>
+            <li>Capture o valor do select com <code>.value</code>.</li>
+            <li>Capture o radio selecionado com <code>querySelector</code>.</li>
+            <li>Exiba todos os dados concatenados.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>O <code>select</code> retorna o <code>value</code> da opção escolhida.</li>
+                <li>Use <code>'input[name="tipo"]:checked'</code> para pegar o radio marcado.</li>
+                <li>Um dos radios deve ter <code>checked</code>.</li>
+                <li>Estilize o select e os inputs com largura de 90%.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/cadastro2.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 8 – CADASTRO COM CHECKBOX                           -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>8️⃣ Atividade 8 – Pedido de Lanche com Checkbox</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página para pedido de lanche.
+            O usuário informa o nome, escolhe o tamanho, a forma de pagamento e
+            pode marcar adicionais (Fritas, Refrigerante, Sobremesa). Ao finalizar,
+            exiba o resumo do pedido.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Use <code>select</code> para tamanho e <code>radio</code> para pagamento.</li>
+            <li>Use <code>checkbox</code> para os adicionais.</li>
+            <li>Verifique com <code>.checked</code> se cada adicional foi marcado.</li>
+            <li>Monte uma string com os adicionais selecionados.</li>
+            <li>Exiba o resumo completo do pedido.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>Use <code>if (document.getElementById("fritas").checked)</code> para verificar cada checkbox.</li>
+                <li>Concatene os adicionais em uma variável string.</li>
+                <li>Use <code>querySelector</code> para pegar o radio de pagamento.</li>
+                <li>Monte a mensagem final com todos os dados.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/check.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 9 – CARROSSEL                                       -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>9️⃣ Atividade 9 – Carrossel de Imagens</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma galeria com 3 imagens que podem ser
+            navegadas com botões de anterior e próximo. Ao trocar a imagem, exiba
+            também um título correspondente.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Use uma variável para controlar o número da imagem atual.</li>
+            <li>Crie funções para avançar e retroceder.</li>
+            <li>Use <code>if / else if / else</code> para trocar a imagem e o título.</li>
+            <li>Garanta que o carrossel seja circular (volte ao início).</li>
+            <li>Estilize as imagens com largura fixa e bordas arredondadas.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li>Use <code>imagem.src = "url"</code> para trocar a imagem.</li>
+                <li>Controle o número com <code>numero++</code> e <code>numero--</code>.</li>
+                <li>Se <code>numero &gt; 3</code>, volte para 1; se <code>numero &lt; 1</code>, vá para 3.</li>
+                <li>Use o site <code>picsum.photos</code> para imagens de exemplo.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/carrossel.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ATIVIDADE 10 – TELA CLARA/ESCURA                              -->
+    <!-- ============================================================ -->
+    <section class="atividade">
+        <h2>🔟 Atividade 10 – Tema Claro / Escuro</h2>
+
+        <div class="enunciado">
+            <strong>Enunciado:</strong> Crie uma página que permita alternar entre
+            tema claro e tema escuro. Ao clicar nos botões, a página deve mudar as
+            cores e exibir uma mensagem indicando o tema atual.
+        </div>
+
+        <h3>📋 Instruções</h3>
+        <ul class="instrucoes">
+            <li>Use dois botões: um para tema claro e outro para tema escuro.</li>
+            <li>Altere a classe do <code>body</code> para aplicar o tema.</li>
+            <li>Crie uma classe <code>.escuro</code> no CSS com cores escuras.</li>
+            <li>Atualize o texto de saída indicando o tema atual.</li>
+            <li>Use emojis ☀️ e 🌙 para ilustrar.</li>
+        </ul>
+
+        <div class="dicas">
+            <strong>💡 Dicas para chegar na solução:</strong>
+            <ul>
+                <li><code>document.body.className = "escuro"</code> aplica a classe ao body.</li>
+                <li><code>document.body.className = ""</code> remove todas as classes.</li>
+                <li>No CSS, use <code>body.escuro { ... }</code> para estilos do tema escuro.</li>
+                <li>Altere também a cor do card no tema escuro.</li>
+            </ul>
+        </div>
+
+        <video autoplay loop muted playsinline
+            style="width:100%; border-radius:12px; border:1px solid #e2e8f0;">
+            <source src="videos/temas.webm" type="video/webm">
+        </video>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- GLOSSÁRIO                                                     -->
+    <!-- ============================================================ -->
+    <section class="glossario">
+        <h2>📚 Glossário de Elementos, Propriedades e Comandos</h2>
+
+        <div class="glossario-grid">
+
+            <!-- HTML -->
+            <div class="glossario-categoria">
+                <h3 class="html">🌐 HTML – Elementos</h3>
+                <dl>
+                    <dt>&lt;!DOCTYPE html&gt;</dt>
+                    <dd>Declara que o documento é HTML5.</dd>
+
+                    <dt>&lt;html lang="pt-BR"&gt;</dt>
+                    <dd>Elemento raiz, define o idioma da página.</dd>
+
+                    <dt>&lt;head&gt;</dt>
+                    <dd>Contém metadados, título e links para CSS.</dd>
+
+                    <dt>&lt;meta charset="UTF-8"&gt;</dt>
+                    <dd>Define a codificação de caracteres.</dd>
+
+                    <dt>&lt;title&gt;</dt>
+                    <dd>Título exibido na aba do navegador.</dd>
+
+                    <dt>&lt;link rel="stylesheet" href="..."&gt;</dt>
+                    <dd>Vincula um arquivo CSS externo.</dd>
+
+                    <dt>&lt;body&gt;</dt>
+                    <dd>Corpo visível da página.</dd>
+
+                    <dt>&lt;div&gt;</dt>
+                    <dd>Contêiner genérico para agrupar elementos.</dd>
+
+                    <dt>&lt;h1&gt; a &lt;h6&gt;</dt>
+                    <dd>Títulos de diferentes níveis.</dd>
+
+                    <dt>&lt;p&gt;</dt>
+                    <dd>Parágrafo de texto.</dd>
+
+                    <dt>&lt;label&gt;</dt>
+                    <dd>Rótulo descritivo para um campo de formulário.</dd>
+
+                    <dt>&lt;input type="text"&gt;</dt>
+                    <dd>Campo de entrada de texto simples.</dd>
+
+                    <dt>&lt;input type="number"&gt;</dt>
+                    <dd>Campo de entrada numérica.</dd>
+
+                    <dt>&lt;input type="range"&gt;</dt>
+                    <dd>Controle deslizante para valores numéricos.</dd>
+
+                    <dt>&lt;input type="radio"&gt;</dt>
+                    <dd>Botão de seleção única (agrupado por name).</dd>
+
+                    <dt>&lt;input type="checkbox"&gt;</dt>
+                    <dd>Caixa de seleção múltipla.</dd>
+
+                    <dt>&lt;select&gt; e &lt;option&gt;</dt>
+                    <dd>Lista suspensa e suas opções.</dd>
+
+                    <dt>&lt;button&gt;</dt>
+                    <dd>Botão clicável.</dd>
+
+                    <dt>&lt;img&gt;</dt>
+                    <dd>Exibe uma imagem.</dd>
+
+                    <dt>&lt;strong&gt;</dt>
+                    <dd>Texto com ênfase forte (negrito).</dd>
+
+                    <dt>&lt;script src="..."&gt;</dt>
+                    <dd>Vincula um arquivo JavaScript externo.</dd>
+
+                    <dt>onclick</dt>
+                    <dd>Evento disparado ao clicar em um elemento.</dd>
+
+                    <dt>onchange</dt>
+                    <dd>Evento disparado quando o valor de um campo muda.</dd>
+                </dl>
+            </div>
+
+            <!-- CSS -->
+            <div class="glossario-categoria">
+                <h3 class="css">🎨 CSS – Propriedades</h3>
+                <dl>
+                    <dt>color</dt>
+                    <dd>Cor do texto.</dd>
+
+                    <dt>background / background-color</dt>
+                    <dd>Cor de fundo.</dd>
+
+                    <dt>text-align</dt>
+                    <dd>Alinhamento horizontal do texto (center, left, right).</dd>
+
+                    <dt>font-size</dt>
+                    <dd>Tamanho da fonte.</dd>
+
+                    <dt>font-weight</dt>
+                    <dd>Espessura da fonte (bold, normal).</dd>
+
+                    <dt>max-width</dt>
+                    <dd>Largura máxima do elemento.</dd>
+
+                    <dt>margin</dt>
+                    <dd>Espaçamento externo.</dd>
+
+                    <dt>margin: 0 auto</dt>
+                    <dd>Centraliza horizontalmente um bloco.</dd>
+
+                    <dt>padding</dt>
+                    <dd>Espaçamento interno.</dd>
+
+                    <dt>border</dt>
+                    <dd>Borda do elemento.</dd>
+
+                    <dt>border-radius</dt>
+                    <dd>Arredondamento dos cantos.</dd>
+
+                    <dt>width / height</dt>
+                    <dd>Largura e altura.</dd>
+
+                    <dt>display: block</dt>
+                    <dd>Faz o elemento ocupar a linha inteira.</dd>
+
+                    <dt>object-fit: cover</dt>
+                    <dd>Ajusta a imagem para preencher o contêiner.</dd>
+
+                    <dt>box-shadow</dt>
+                    <dd>Sombra ao redor do elemento.</dd>
+
+                    <dt>transition</dt>
+                    <dd>Suaviza mudanças de propriedades CSS.</dd>
+
+                    <dt>classe (.)</dt>
+                    <dd>Seletor para elementos com class="nome".</dd>
+
+                    <dt>id (#)</dt>
+                    <dd>Seletor para elemento com id="nome".</dd>
+                </dl>
+            </div>
+
+            <!-- JavaScript -->
+            <div class="glossario-categoria">
+                <h3 class="js">⚡ JavaScript – Comandos</h3>
+                <dl>
+                    <dt>document.getElementById("id")</dt>
+                    <dd>Seleciona um elemento pelo seu id.</dd>
+
+                    <dt>document.querySelector("seletor")</dt>
+                    <dd>Seleciona o primeiro elemento que corresponde ao seletor CSS.</dd>
+
+                    <dt>.value</dt>
+                    <dd>Obtém ou define o valor de um campo de formulário.</dd>
+
+                    <dt>.innerText</dt>
+                    <dd>Obtém ou define o texto visível de um elemento.</dd>
+
+                    <dt>.checked</dt>
+                    <dd>Retorna true/false para radio ou checkbox.</dd>
+
+                    <dt>.className</dt>
+                    <dd>Obtém ou define a(s) classe(s) CSS de um elemento.</dd>
+
+                    <dt>.src</dt>
+                    <dd>Define o caminho da imagem em um &lt;img&gt;.</dd>
+
+                    <dt>function nome() { }</dt>
+                    <dd>Declara uma função.</dd>
+
+                    <dt>let / const</dt>
+                    <dd>Declara variáveis (let mutável, const imutável).</dd>
+
+                    <dt>if / else if / else</dt>
+                    <dd>Estruturas condicionais.</dd>
+
+                    <dt>parseFloat() / Number()</dt>
+                    <dd>Converte string para número decimal.</dd>
+
+                    <dt>toFixed(2)</dt>
+                    <dd>Formata número com 2 casas decimais.</dd>
+
+                    <dt>.replace('.', ',')</dt>
+                    <dd>Substitui ponto por vírgula.</dd>
+
+                    <dt>numero++ / numero--</dt>
+                    <dd>Incrementa ou decrementa uma variável numérica.</dd>
+
+                    <dt>&gt; / &lt; / ===</dt>
+                    <dd>Operadores de comparação.</dd>
+
+                    <dt>+ (concatenação)</dt>
+                    <dd>Une strings.</dd>
+
+                    <dt>processarPagamento();</dt>
+                    <dd>Chama uma função imediatamente ao carregar o script.</dd>
+                </dl>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- RODAPÉ                                                        -->
+    <!-- ============================================================ -->
+    <footer>
+        <a class="btn-formulario"
+           href="https://forms.gle/zbUB57A4FteUDsKSA"
+           target="_blank"
+           rel="noopener noreferrer">
+            📋 Formulário de Entrega
+        </a>
+        <p style="margin-top:1.2rem;color:#64748b;font-size:0.9rem;">
+            Clique no botão acima para enviar sua atividade.
+        </p>
+    </footer>
+
+</div>
+
+</body>
+</html>

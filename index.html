@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 TEMA 06 - Trabalhando com Telas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #f7971e;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+
+        .header h1 span {
+            color: #f7971e;
+        }
+
+        .header p {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .badge-tema {
+            display: inline-block;
+            background: #f7971e;
+            color: #1a1a2e;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-top: 8px;
+        }
+
+        .badge-tema-dois {
+            display: inline-block;
+            background: #17a2b8;
+            color: white;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            margin-top: 4px;
+        }
+
+        /* ===== MENU ITEMS ===== */
+        .menu-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border-radius: 14px;
+            border-left: 5px solid #dee2e6;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #2c3e50;
+            position: relative;
+            flex-direction: column;
+        }
+
+        .menu-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            background: #fff8f0;
+        }
+
+        .menu-item .linha {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .menu-item .icon {
+            font-size: 1.8rem;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .menu-item .info {
+            flex: 1;
+        }
+
+        .menu-item .info h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .menu-item .info p {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .menu-item .seta {
+            font-size: 1.2rem;
+            color: #aab3cc;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
+        .menu-item:hover .seta {
+            color: #f7971e;
+            transform: translateX(3px);
+        }
+
+        /* ===== CORES POR ITEM ===== */
+        .menu-item.conceitos {
+            border-left-color: #f7971e;
+        }
+
+        .menu-item.atividades {
+            border-left-color: #17a2b8;
+        }
+
+        /* ===== BADGES ===== */
+        .badge-atividade {
+            background: #dc3545;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 10px;
+            flex-shrink: 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* ===== DESTAQUE ===== */
+        .menu-item.destaque {
+            background: #fff5f5;
+            border-left-color: #dc3545;
+            border: 2px solid #dc3545;
+        }
+
+        .menu-item.destaque:hover {
+            background: #fff0f0;
+            box-shadow: 0 4px 20px rgba(220, 53, 69, 0.2);
+        }
+
+        /* ===== RODAPÉ ===== */
+        .footer {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .footer h4 {
+            color: #1a1a2e;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: all 0.3s;
+            border: 1px solid #e9ecef;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-color: #f7971e;
+        }
+
+        .footer-link .emoji {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .footer-link .texto {
+            flex: 1;
+        }
+
+        .footer-link .texto small {
+            display: block;
+            font-size: 0.7rem;
+            color: #6c757d;
+        }
+
+        .footer-link.form {
+            border-left: 4px solid #28a745;
+        }
+
+        .footer-link.form:hover {
+            border-color: #28a745;
+        }
+
+        .footer .obs {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .menu-item {
+                padding: 12px 16px;
+            }
+
+            .menu-item .icon {
+                font-size: 1.4rem;
+                margin-right: 12px;
+            }
+
+            .menu-item .info h3 {
+                font-size: 0.9rem;
+            }
+
+            .badge-atividade {
+                font-size: 0.5rem;
+                padding: 2px 8px;
+                margin-left: 6px;
+            }
+
+            .footer-links {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .menu-item .info p {
+                font-size: 0.7rem;
+            }
+
+            .menu-item .seta {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <h1>📱 TEMA <span>06</span></h1>
+        <p>Trabalhando com Telas</p>
+        <span class="badge-tema">📐 Layout · Design Responsivo · Interface</span>
+        <br>
+        <span class="badge-tema-dois">Mobile · Desktop · Multi-telas</span>
+    </div>
+
+    <!-- ===== MENU PRINCIPAL ===== -->
+    <div class="menu-list">
+
+        <!-- 1) CONCEITOS INICIAIS -->
+        <a href="tema6.html" target="_blank" class="menu-item conceitos destaque">
+            <div class="linha">
+                <span class="icon">📖</span>
+                <div class="info">
+                    <h3>1) Conceitos Iniciais</h3>
+                    <p>Fundamentos sobre telas, layout e design responsivo</p>
+                </div>
+                <span class="badge-atividade">📌 ATIVIDADE</span>
+                <span class="seta">→</span>
+            </div>
+        </a>
+
+        <!-- 2) ATIVIDADES -->
+        <a href="atividades.html" target="_blank" class="menu-item atividades destaque">
+            <div class="linha">
+                <span class="icon">✏️</span>
+                <div class="info">
+                    <h3>2) Atividades</h3>
+                    <p>Exercícios práticos sobre trabalhar com telas</p>
+                </div>
+                <span class="badge-atividade">📌 ATIVIDADE</span>
+                <span class="seta">→</span>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- ===== RODAPÉ ===== -->
+    <div class="footer">
+
+        <h4>📋 Formulário de Entrega</h4>
+
+        <div class="footer-links">
+
+            <a href="https://forms.gle/zbUB57A4FteUDsKSA" target="_blank" class="footer-link form">
+                <span class="emoji">📝</span>
+                <div class="texto">
+                    <strong>Envio de Relatório</strong>
+                    <small>Atividades (itens 1 e 2) + Relatório da aula</small>
+                </div>
+                <span class="seta">→</span>
+            </a>
+
+        </div>
+
+        <div class="obs">
+            💡 Clique nos links para abrir em uma nova aba
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
