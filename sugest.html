@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Soluções das 10 Atividades – HTML, CSS e JavaScript</title>
+    <style>
+        /* ============================================================
+           RESET E ESTILOS GERAIS
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f2027 100%);
+            padding: 20px 14px;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #0891b2 50%, #7c3aed 100%);
+            border-radius: 20px;
+            padding: 35px 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header h1 span { color: #fef08a; }
+
+        .header p {
+            opacity: 0.95;
+            font-size: 1rem;
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            backdrop-filter: blur(5px);
+        }
+
+        /* ============================================================
+           SELETOR DE ATIVIDADES
+           ============================================================ */
+        .seletor-atividades {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .seletor-atividades h3 {
+            color: #0f172a;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .botoes-atividades {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn-atividade {
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            color: #334155;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-atividade:hover {
+            background: #e0f2fe;
+            border-color: #0ea5e9;
+            transform: translateY(-2px);
+        }
+
+        .btn-atividade.ativo {
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        /* ============================================================
+           CARD DE ATIVIDADE
+           ============================================================ */
+        .atividade-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 26px;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .atividade-card.ativa {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .atividade-card h2 {
+            color: #0f172a;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .atividade-card .subtitulo {
+            color: #64748b;
+            font-size: 0.92rem;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px dashed #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .atividade-card .subtitulo strong {
+            color: #0ea5e9;
+        }
+
+        /* ============================================================
+           ABAS (HTML / CSS / JS)
+           ============================================================ */
+        .abas {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 0;
+            overflow-x: auto;
+        }
+
+        .aba {
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .aba:hover {
+            color: #0ea5e9;
+            background: #f8fafc;
+        }
+
+        .aba.ativa {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+
+        /* ============================================================
+           BLOCO DE CÓDIGO
+           ============================================================ */
+        .bloco-codigo {
+            display: none;
+            position: relative;
+            background: #090d16;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .bloco-codigo.ativo {
+            display: block;
+        }
+
+        .bloco-codigo pre {
+            background: #090d16;
+            color: #e2e8f0;
+            padding: 18px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            overflow-x: auto;
+            white-space: pre;
+            margin: 0;
+            max-height: 500px;
+        }
+
+        .bloco-codigo .btn-copiar {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            font-family: inherit;
+            z-index: 2;
+        }
+
+        .bloco-codigo .btn-copiar:hover {
+            background: #059669;
+            transform: scale(1.03);
+        }
+
+        /* ============================================================
+           AÇÕES (Preview + OneCompiler)
+           ============================================================ */
+        .acoes-atividade {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 2px dashed #e2e8f0;
+        }
+
+        .btn-acao {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.92rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-onecompiler {
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-onecompiler:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn-copiar-tudo {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-copiar-tudo:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           ALERTA / INFO
+           ============================================================ */
+        .info-uso {
+            background: #eff6ff;
+            border-left: 5px solid #3b82f6;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #1e40af;
+        }
+
+        .info-uso strong {
+            color: #1e3a8a;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .destaque-footer {
+            background: #fff3cd;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border-left: 5px solid #ffc107;
+            margin-bottom: 18px;
+            font-size: 0.9rem;
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: all 0.3s;
+            border: 2px solid #28a745;
+            font-size: 0.95rem;
+        }
+
+        .footer-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.2);
+            background: #d4edda;
+        }
+
+        .btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-family: inherit;
+        }
+
+        /* ============================================================
+           RESPONSIVO
+           ============================================================ */
+        @media (max-width: 600px) {
+            body { padding: 12px 8px; }
+            .header { padding: 24px 16px; }
+            .header h1 { font-size: 1.4rem; }
+            .atividade-card { padding: 18px 14px; }
+            .atividade-card h2 { font-size: 1.2rem; }
+            .btn-atividade { font-size: 0.75rem; padding: 6px 12px; }
+            .aba { padding: 8px 12px; font-size: 0.82rem; }
+            .bloco-codigo pre { font-size: 0.72rem; padding: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>📚 Soluções das <span>10 Atividades</span></h1>
+        <p>Apresentação completa dos códigos-fonte em HTML, CSS e JavaScript — prontos para visualizar, copiar e testar no OneCompiler</p>
+        <div class="badge-group">
+            <span class="badge">💻 10 Atividades</span>
+            <span class="badge">📄 HTML + CSS + JS</span>
+            <span class="badge">📋 Copiar código</span>
+            <span class="badge">🚀 OneCompiler Ready</span>
+        </div>
+    </header>
+
+    <!-- INFO DE USO -->
+    <div class="info-uso">
+        💡 <strong>Como usar:</strong> Escolha uma atividade abaixo, navegue pelas abas <strong>HTML</strong>, <strong>CSS</strong> e <strong>JS</strong> para ver cada parte separadamente, clique em <strong>📋 Copiar código</strong> para levar para o VSCode ou <strong>🚀 Abrir no OneCompiler</strong> para testar tudo junto no navegador.
+    </div>
+
+    <!-- SELETOR DE ATIVIDADES -->
+    <div class="seletor-atividades">
+        <h3>🎯 Escolha uma atividade</h3>
+        <div class="botoes-atividades" id="botoesAtividades"></div>
+    </div>
+
+    <!-- ÁREA DAS ATIVIDADES -->
+    <div id="areaAtividades"></div>
+
+    <!-- FOOTER -->
+    <footer class="footer-card">
+        <div class="destaque-footer">
+            📌 <strong>ATENÇÃO ALUNOS:</strong> Este material contém as soluções de referência. Use-as para estudar, comparar com o seu código e entender as boas práticas. Depois, tente refazer cada atividade do zero!
+        </div>
+
+        <h4 style="margin-bottom: 12px; color: #2563eb;">📋 Formulário Oficial de Entrega</h4>
+
+        <div class="footer-links">
+            <a href="https://forms.gle/zbUB57A4FteUDsKSA" target="_blank" class="footer-link">
+                <span style="font-size:1.4rem;">📝</span>
+                <div style="text-align:left; flex:1;">
+                    <strong>Formulário de Entrega do Relatório</strong>
+                    <small style="display:block; color:#64748b; font-size:0.75rem;">Envio dos arquivos HTML + Atividades</small>
+                </div>
+                <span style="font-size:1.2rem; font-weight:bold; color:#28a745;">&rarr;</span>
+            </a>
+        </div>
+
+        <p style="margin-top: 18px; font-size: 0.75rem; color: #64748b;">
+            📘 Material Pedagógico: Soluções das Atividades &bull; Programação Mobile &bull; 2026
+        </p>
+    </footer>
+
+</div>
+
+<button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Topo</button>
+
+<script>
+    /* ============================================================
+       DADOS: 10 ATIVIDADES COM HTML, CSS E JS
+       ============================================================ */
+    const ATIVIDADES = [
+        {
+            id: 'identificacao',
+            titulo: '1️⃣ Identificação',
+            icone: '👤',
+            descricao: 'Campo de texto que exibe o nome digitado ao clicar em "Testar" e limpa os campos ao clicar em "Limpar".',
+            html: `<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="card">
+        <h1 class="title">Identificação</h1>
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" placeholder="Entre com seu nome">
+        <p id="retorno"></p>
+        <button onclick="mensagem()">Testar</button>
+        <button onclick="limpar()">Limpar</button>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+button {
+    background: #cbd5e1;
+    font-size: larger;
+    border-radius: 10%;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    max-width: 250px;
+    margin: 0 auto;
+    border: 1px solid #cbd5e1;
+    padding: 5%;
+}
+
+#retorno {
+    color: blue;
+    font-size: larger;
+}`,
+            js: `function mensagem() {
+    let conteudo = document.getElementById("nome").value;
+    document.getElementById("retorno").innerText = conteudo;
+}
+
+function limpar() {
+    document.getElementById("nome").value = "";
+    mensagem();
+}`
+        },
+        {
+            id: 'carrinho',
+            titulo: '2️⃣ Carrinho de Compras',
+            icone: '🛒',
+            descricao: 'Calcula o total de fones de ouvido (R$ 29,00 cada) com base na quantidade informada.',
+            html: `<!DOCTYPE html>
+<html>
+<head>
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="card">
+        <h1>Carrinho</h1>
+        <h2>Fones de ouvido</h2>
+        <h4>Fone De Ouvido Bluetooth 5.0</h4>
+        <h1>R$29,00</h1>
+        <label for="entrada">Quantidade:</label>
+        <input type="number" id="entrada" value="0" min="0" max="10"
+               onchange="calcular()"> <br>
+        <h1 id="saida"></h1>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+h1 {
+    color: blue;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    max-width: 250px;
+    margin: 0 auto;
+    border: 1px solid #cbd5e1;
+    padding: 1%;
+}
+
+#entrada {
+    height: 20px;
+    width: 35px;
+    background-color: rgb(239, 245, 239);
+}
+
+#saida {
+    color: rgb(17, 85, 21);
+}`,
+            js: `function calcular() {
+    const preco = 29.00;
+    let quantidade = document.getElementById("entrada").value;
+    document.getElementById("saida").innerText = "Total: R$ " +
+        (preco * quantidade).toFixed(2).replace('.', ',');
+}`
+        },
+        {
+            id: 'estoque',
+            titulo: '3️⃣ Controle de Estoque',
+            icone: '📦',
+            descricao: 'Verifica se a quantidade solicitada está disponível no estoque (3 unidades).',
+            html: `<!DOCTYPE html>
+<html>
+<head>
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="card">
+        <h1>🎮Games AC</h1>
+        <p>Estoque disponível: <strong style="color:#ea580c;">
+            3 unidades</strong></p>
+
+        <label>Quantas controles deseja?</label>
+        <input type="number" id="entrada" value="2" min="1"
+               onchange="estoque()">
+        <div>
+            <h3 id="saida"></h3>
+        </div>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+h1 {
+    color: blue;
+}
+
+.card {
+    background: white;
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+}
+
+#entrada {
+    width: 35px;
+    height: 20px;
+}
+
+#saida {
+    padding: 5px;
+    border-radius: 12px;
+}
+
+#saida.ok {
+    color: blue;
+    background: #cbd5e1;
+}
+
+#saida.no {
+    color: rgb(196, 2, 2);
+    background: #f7d8cc;
+}`,
+            js: `function estoque() {
+    const totalEstoque = 3;
+    let totalSolicitado = document.getElementById("entrada").value;
+    let saida = document.getElementById("saida");
+
+    if (totalSolicitado > totalEstoque) {
+        saida.innerText = "❌ Estoque ultrapassado";
+        saida.className = "no";
+    } else {
+        saida.innerText = "🆗 Quantidade permitida";
+        saida.className = "ok";
+    }
+}`
+        },
+        {
+            id: 'pagamento',
+            titulo: '4️⃣ Formas de Pagamento',
+            icone: '💳',
+            descricao: 'Aplica descontos conforme a forma de pagamento: PIX (5%), Cartão (0%) e Dinheiro (10%).',
+            html: `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Forma de Pagamento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <h2>💳 Forma de Pagamento</h2>
+        <p>Total: <strong>R$ 100,00</strong></p>
+        <label for="pagamento">Escolha como pagar:</label>
+        <select id="pagamento" onchange="processarPagamento()">
+            <option value="pix">PIX</option>
+            <option value="cartao">Cartão</option>
+            <option value="dinheiro">Dinheiro</option>
+        </select>
+        <p id="saida"></p>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+.card {
+    background: white;
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+}
+
+select {
+    padding: 8px;
+}
+
+#saida {
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#saida.pix {
+    color: green;
+    background: #dcfce7;
+}
+
+#saida.cartao {
+    color: blue;
+    background: #e0f2fe;
+}
+
+#saida.dinheiro {
+    color: #854d0e;
+    background: #fffbe8;
+}`,
+            js: `function processarPagamento() {
+    const total = 100;
+    let opcao = document.getElementById("pagamento").value;
+    let saida = document.getElementById("saida");
+    if (opcao === "pix") {
+        let valor = total * 0.95;
+        saida.innerText =
+            "⚡ PIX: R$ " + valor.toFixed(2).replace(".", ",");
+        saida.className = "pix";
+    } else if (opcao === "cartao") {
+        saida.innerText =
+            "💳 Cartão: R$ " + total.toFixed(2).replace(".", ",");
+        saida.className = "cartao";
+    } else {
+        let valor = total * 0.90;
+        saida.innerText =
+            "💵 Dinheiro: R$ " + valor.toFixed(2).replace(".", ",");
+        saida.className = "dinheiro";
+    }
+}
+processarPagamento();`
+        },
+        {
+            id: 'endereco',
+            titulo: '5️⃣ Endereço de Entrega',
+            icone: '📦',
+            descricao: 'Escolha entre Casa, Sítio ou Trabalho usando botões de rádio e veja a mensagem correspondente.',
+            html: `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Endereço de Entrega</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <h2>📦 Endereço de Entrega</h2>
+        <p>Onde deseja receber o pedido?</p>
+        <label>
+            <input type="radio" name="endereco" value="casa"
+                   onchange="mostrarEndereco()" checked>
+            🏠 Casa
+        </label>
+        <label>
+            <input type="radio" name="endereco" value="sitio"
+                   onchange="mostrarEndereco()">
+            🌳 Sítio
+        </label>
+        <label>
+            <input type="radio" name="endereco" value="trabalho"
+                   onchange="mostrarEndereco()">
+            💼 Trabalho
+        </label>
+        <p id="saida"></p>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+.card {
+    background: white;
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+}
+
+label {
+    display: block;
+    margin: 10px;
+}
+
+#saida {
+    padding: 8px;
+    border-radius: 8px;
+    background: #e0f2fe;
+    color: #0369a1;
+}`,
+            js: `function mostrarEndereco() {
+    let endereco = document.querySelector(
+        'input[name="endereco"]:checked'
+    ).value;
+    let saida = document.getElementById("saida");
+    if (endereco === "casa") {
+        saida.innerText = "🏠 Pedido será entregue em casa";
+    } else if (endereco === "sitio") {
+        saida.innerText = "🌳 Pedido será entregue no sítio";
+    } else {
+        saida.innerText = "💼 Pedido será entregue no trabalho";
+    }
+}
+mostrarEndereco();`
+        },
+        {
+            id: 'cadastro',
+            titulo: '6️⃣ Cadastro de Cliente',
+            icone: '👤',
+            descricao: 'Cadastra nome, idade e cidade e exibe os dados concatenados.',
+            html: `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <h2>👤 Cadastro de Cliente</h2>
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" placeholder="Digite seu nome">
+        <label for="idade">Idade</label>
+        <input type="number" id="idade" min="1">
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" placeholder="Digite sua cidade">
+        <button onclick="cadastrar()">Cadastrar</button>
+        <p id="saida"></p>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+.card {
+    background: white;
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 90%;
+    padding: 7px;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 8px 15px;
+}
+
+#saida {
+    margin-top: 15px;
+    padding: 8px;
+    background: #e0f2fe;
+}`,
+            js: `function cadastrar() {
+    let nome = document.getElementById("nome").value;
+    let idade = document.getElementById("idade").value;
+    let cidade = document.getElementById("cidade").value;
+
+    document.getElementById("saida").innerText =
+        "Cliente: " + nome +
+        " | Idade: " + idade +
+        " | Cidade: " + cidade;
+}`
+        },
+        {
+            id: 'cadastro-select',
+            titulo: '7️⃣ Cadastro c/ Select e Radio',
+            icone: '📋',
+            descricao: 'Cadastro com select de cidades e radio para tipo de cliente.',
+            html: `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <h2>👤 Cadastro de Cliente</h2>
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" placeholder="Digite seu nome">
+        <label for="cidade">Cidade</label>
+        <select id="cidade">
+            <option value="jf">Juiz de Fora</option>
+            <option value="bh">Belo Horizonte</option>
+            <option value="rio">Rio de Janeiro</option>
+        </select>
+        <p>Tipo de cliente:</p>
+        <label>
+            <input type="radio" name="tipo" value="novo" checked>
+            Novo
+        </label>
+        <label>
+            <input type="radio" name="tipo" value="cliente">
+            Cliente
+        </label>
+        <button onclick="cadastrar()">Cadastrar</button>
+        <p id="saida"></p>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+.card {
+    background: white;
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+}
+
+label {
+    display: block;
+    margin: 10px;
+}
+
+input[type="text"],
+select {
+    width: 90%;
+    padding: 7px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 8px 15px;
+}
+
+#saida {
+    padding: 8px;
+    background: #e0f2fe;
+}`,
+            js: `function cadastrar() {
+    let nome = document.getElementById("nome").value;
+    let cidade = document.getElementById("cidade").value;
+    let tipo = document.querySelector(
+        'input[name="tipo"]:checked'
+    ).value;
+    document.getElementById("saida").innerText =
+        "Cliente: " + nome +
+        " | Cidade: " + cidade +
+        " | Tipo: " + tipo;
+}`
+        },
+        {
+            id: 'cadastro-check',
+            titulo: '8️⃣ Cadastro c/ Checkbox',
+            icone: '🍔',
+            descricao: 'Pedido de lanche com tamanho, forma de pagamento e adicionais (checkbox).',
+            html: `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido de Lanche</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <h2>🍔 Pedido de Lanche</h2>
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" placeholder="Digite seu nome">
+        <label for="tamanho">Tamanho</label>
+        <select id="tamanho">
+            <option value="pequeno">Pequeno</option>
+            <option value="medio" selected>Médio</option>
+            <option value="grande">Grande</option>
+        </select>
+        <p>Forma de pagamento:</p>
+        <label>
+            <input type="radio" name="pagamento" value="pix" checked>
+            PIX
+        </label>
+        <label>
+            <input type="radio" name="pagamento" value="cartao">
+            Cartão
+        </label>
+        <p>Adicionais:</p>
+        <label>
+            <input type="checkbox" id="fritas">
+            🍟 Fritas
+        </label>
+        <label>
+            <input type="checkbox" id="refrigerante">
+            🥤 Refrigerante
+        </label>
+        <label>
+            <input type="checkbox" id="sobremesa">
+            🍰 Sobremesa
+        </label>
+        <button onclick="finalizar()">Finalizar pedido</button>
+        <p id="saida"></p>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+.card {
+    background: white;
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+}
+
+label {
+    display: block;
+    margin: 10px;
+}
+
+input[type="text"],
+select {
+    width: 90%;
+    padding: 7px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 8px 15px;
+}
+
+#saida {
+    padding: 8px;
+    background: #e0f2fe;
+}`,
+            js: `function finalizar() {
+    let nome = document.getElementById("nome").value;
+    let tamanho = document.getElementById("tamanho").value;
+    let pagamento = document.querySelector(
+        'input[name="pagamento"]:checked'
+    ).value;
+    let adicionais = "";
+    if (document.getElementById("fritas").checked) {
+        adicionais += "Fritas ";
+    }
+    if (document.getElementById("refrigerante").checked) {
+        adicionais += "Refrigerante ";
+    }
+    if (document.getElementById("sobremesa").checked) {
+        adicionais += "Sobremesa ";
+    }
+    document.getElementById("saida").innerText =
+        "Pedido de " + nome +
+        " | Tamanho: " + tamanho +
+        " | Pagamento: " + pagamento +
+        " | Adicionais: " + adicionais;
+}`
+        },
+        {
+            id: 'carrossel',
+            titulo: '9️⃣ Carrossel de Imagens',
+            icone: '🖼️',
+            descricao: 'Galeria com 3 imagens que podem ser navegadas com botões anterior/próximo.',
+            html: `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrossel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <h2>🖼️ Galeria</h2>
+        <img id="imagem" src="https://picsum.photos/id/1015/300/200">
+        <p id="titulo">Imagem 1</p>
+        <button onclick="anterior()">⬅️</button>
+        <button onclick="proxima()">➡️</button>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: #f8fafc;
+}
+
+.card {
+    background: white;
+    max-width: 350px;
+    margin: 30px auto;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+}
+
+img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+button {
+    padding: 8px 15px;
+    margin: 5px;
+}`,
+            js: `let numero = 1;
+function mostrar() {
+    let imagem = document.getElementById("imagem");
+    let titulo = document.getElementById("titulo");
+    if (numero === 1) {
+        imagem.src = "https://picsum.photos/id/1015/300/200";
+        titulo.innerText = "Imagem 1";
+    }
+    else if (numero === 2) {
+        imagem.src = "https://picsum.photos/id/1016/300/200";
+        titulo.innerText = "Imagem 2";
+    }
+    else {
+        imagem.src = "https://picsum.photos/id/1018/300/200";
+        titulo.innerText = "Imagem 3";
+    }
+}
+
+function proxima() {
+    numero++;
+    if (numero > 3) {
+        numero = 1;
+    }
+    mostrar();
+}
+
+function anterior() {
+    numero--;
+    if (numero < 1) {
+        numero = 3;
+    }
+    mostrar();
+}`
+        },
+        {
+            id: 'tema',
+            titulo: '🔟 Tela Clara / Escura',
+            icone: '🎨',
+            descricao: 'Alterna entre tema claro e escuro aplicando/removendo a classe "escuro" do body.',
+            html: `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tema da Tela</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <h2>🎨 Tema da Tela</h2>
+        <p>Escolha o tema:</p>
+        <button onclick="claro()">☀️ Claro</button>
+        <button onclick="escuro()">🌙 Escuro</button>
+        <p id="saida">Tema claro</p>
+    </div>
+    <script src="script.js"><\/script>
+</body>
+</html>`,
+            css: `body {
+    text-align: center;
+    background: white;
+    color: black;
+}
+
+.card {
+    max-width: 300px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #999;
+    border-radius: 12px;
+}
+
+button {
+    padding: 8px;
+    margin: 5px;
+}
+
+body.escuro {
+    background: #222;
+    color: white;
+}
+
+body.escuro .card {
+    background: #333;
+}`,
+            js: `function claro() {
+    document.body.className = "";
+    document.getElementById("saida").innerText =
+        "☀️ Tema claro";
+}
+
+function escuro() {
+    document.body.className = "escuro";
+    document.getElementById("saida").innerText =
+        "🌙 Tema escuro";
+}`
+        }
+    ];
+
+    /* ============================================================
+       GERAR BOTÕES DE NAVEGAÇÃO
+       ============================================================ */
+    const botoesContainer = document.getElementById('botoesAtividades');
+    const areaAtividades = document.getElementById('areaAtividades');
+
+    ATIVIDADES.forEach((ativ, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-atividade' + (index === 0 ? ' ativo' : '');
+        btn.textContent = ativ.titulo;
+        btn.dataset.id = ativ.id;
+        btn.onclick = () => trocarAtividade(ativ.id);
+        botoesContainer.appendChild(btn);
+    });
+
+    /* ============================================================
+       GERAR CARDS DAS ATIVIDADES
+       ============================================================ */
+    ATIVIDADES.forEach((ativ, index) => {
+        const card = document.createElement('div');
+        card.className = 'atividade-card' + (index === 0 ? ' ativa' : '');
+        card.id = 'card-' + ativ.id;
+
+        card.innerHTML = `
+            <h2>${ativ.icone} ${ativ.titulo}</h2>
+            <p class="subtitulo">${ativ.descricao}</p>
+
+            <div class="abas">
+                <button class="aba ativa" onclick="trocarAba('${ativ.id}', 'html', this)">
+                    📄 HTML
+                </button>
+                <button class="aba" onclick="trocarAba('${ativ.id}', 'css', this)">
+                    🎨 CSS
+                </button>
+                <button class="aba" onclick="trocarAba('${ativ.id}', 'js', this)">
+                    ⚡ JavaScript
+                </button>
+            </div>
+
+            <div class="bloco-codigo ativo" id="bloco-${ativ.id}-html">
+                <button class="btn-copiar" onclick="copiarBloco('${ativ.id}', 'html', this)">📋 Copiar</button>
+                <pre>${escapeHtml(ativ.html)}</pre>
+            </div>
+
+            <div class="bloco-codigo" id="bloco-${ativ.id}-css">
+                <button class="btn-copiar" onclick="copiarBloco('${ativ.id}', 'css', this)">📋 Copiar</button>
+                <pre>${escapeHtml(ativ.css)}</pre>
+            </div>
+
+            <div class="bloco-codigo" id="bloco-${ativ.id}-js">
+                <button class="btn-copiar" onclick="copiarBloco('${ativ.id}', 'js', this)">📋 Copiar</button>
+                <pre>${escapeHtml(ativ.js)}</pre>
+            </div>
+
+            <div class="acoes-atividade">
+                <button class="btn-acao btn-copiar-tudo" onclick="copiarTudo('${ativ.id}', this)">
+                    📋 Copiar HTML completo
+                </button>
+                <button class="btn-acao btn-onecompiler" onclick="abrirOneCompiler('${ativ.id}')">
+                    🚀 Abrir no OneCompiler
+                </button>
+            </div>
+        `;
+
+        areaAtividades.appendChild(card);
+    });
+
+    /* ============================================================
+       FUNÇÕES AUXILIARES
+       ============================================================ */
+    function escapeHtml(texto) {
+        return texto
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+
+    function trocarAtividade(id) {
+        // Remove "ativo" de todos os botões e cards
+        document.querySelectorAll('.btn-atividade').forEach(b => b.classList.remove('ativo'));
+        document.querySelectorAll('.atividade-card').forEach(c => c.classList.remove('ativa'));
+
+        // Adiciona "ativo" no botão e card correspondente
+        document.querySelector(`.btn-atividade[data-id="${id}"]`).classList.add('ativo');
+        document.getElementById('card-' + id).classList.add('ativa');
+
+        // Rola suavemente até o card
+        document.getElementById('card-' + id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function trocarAba(id, tipo, btnClicado) {
+        // Remove "ativo" de todas as abas e blocos desta atividade
+        const card = document.getElementById('card-' + id);
+        card.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+        card.querySelectorAll('.bloco-codigo').forEach(b => b.classList.remove('ativo'));
+
+        // Ativa a aba e bloco correspondente
+        btnClicado.classList.add('ativo');
+        document.getElementById(`bloco-${id}-${tipo}`).classList.add('ativo');
+    }
+
+    function copiarBloco(id, tipo, btn) {
+        const ativ = ATIVIDADES.find(a => a.id === id);
+        const texto = ativ[tipo];
+
+        navigator.clipboard.writeText(texto).then(() => {
+            const orig = btn.textContent;
+            btn.textContent = '✅ Copiado!';
+            setTimeout(() => btn.textContent = orig, 2000);
+        });
+    }
+
+    function copiarTudo(id, btn) {
+        const ativ = ATIVIDADES.find(a => a.id === id);
+
+        // Monta o HTML completo com CSS e JS inline
+        const htmlCompleto = ativ.html
+            .replace(
+                '<link rel="stylesheet" href="styles.css" />',
+                '<style>\n' + ativ.css + '\n</style>'
+            )
+            .replace(
+                '<link rel="stylesheet" href="styles.css">',
+                '<style>\n' + ativ.css + '\n</style>'
+            )
+            .replace(
+                '<script src="script.js"><\/script>',
+                '<script>\n' + ativ.js + '\n<\/script>'
+            );
+
+        navigator.clipboard.writeText(htmlCompleto).then(() => {
+            const orig = btn.textContent;
+            btn.textContent = '✅ HTML completo copiado!';
+            setTimeout(() => btn.textContent = orig, 2500);
+        });
+    }
+
+    function abrirOneCompiler(id) {
+        const ativ = ATIVIDADES.find(a => a.id === id);
+
+        // Monta o HTML completo com CSS e JS inline
+        const htmlCompleto = ativ.html
+            .replace(
+                '<link rel="stylesheet" href="styles.css" />',
+                '<style>\n' + ativ.css + '\n</style>'
+            )
+            .replace(
+                '<link rel="stylesheet" href="styles.css">',
+                '<style>\n' + ativ.css + '\n</style>'
+            )
+            .replace(
+                '<script src="script.js"><\/script>',
+                '<script>\n' + ativ.js + '\n<\/script>'
+            );
+
+        const url = 'https://onecompiler.com/html?code=' + encodeURIComponent(htmlCompleto);
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
